@@ -1,19 +1,15 @@
 {
   "manifest_version": 3,
   "name": "PromptBook",
-  "version": "1.0.1",
-  "description": "Local-first prompt vault that saves, searches, and injects prompts directly into AI chat interfaces.",
-  "permissions": [
-    "storage",
-    "contextMenus",
-    "clipboardWrite",
-    "activeTab",
-    "scripting"
-  ],
+  "version": "1.0.5",
+  "description": "Premium prompt vault that saves, searches, and injects prompts directly into AI chats (ChatGPT, Claude, Perplexity, Gemini).",
+  "permissions": ["storage", "activeTab", "scripting", "clipboardWrite", "contextMenus"],
   "host_permissions": [
-    "https://chatgpt.com/*",
+    "https://chatgpt.com/*", 
+    "https://chat.openai.com/*",
     "https://claude.ai/*",
-    "https://www.perplexity.ai/*"
+    "https://www.perplexity.ai/*",
+    "https://gemini.google.com/*"
   ],
   "background": {
     "service_worker": "background.js",
@@ -44,15 +40,21 @@
   "content_scripts": [
     {
       "matches": [
-        "https://chatgpt.com/*",
+        "https://chatgpt.com/*", 
+        "https://chat.openai.com/*",
         "https://claude.ai/*",
-        "https://www.perplexity.ai/*"
+        "https://www.perplexity.ai/*",
+        "https://gemini.google.com/*"
       ],
       "js": ["content.js"],
+      "css": ["content.css"],
       "run_at": "document_idle"
     }
   ],
-  "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'"
-  }
+  "web_accessible_resources": [
+    {
+      "resources": ["content.css", "icons/*"],
+      "matches": ["*://chatgpt.com/*", "*://chat.openai.com/*", "*://claude.ai/*", "*://www.perplexity.ai/*", "*://gemini.google.com/*"]
+    }
+  ]
 }

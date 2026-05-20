@@ -3,6 +3,7 @@ import FloatingUI from "./FloatingUI";
 import { injectIntoChatGPT } from "./chatgpt";
 import { injectIntoClaude } from "./claude";
 import { injectIntoPerplexity } from "./perplexity";
+import { injectIntoGemini } from "./gemini";
 import "./styles.css";
 
 function init() {
@@ -41,6 +42,8 @@ function init() {
       injectIntoClaude(text);
     } else if (host.includes("perplexity.ai")) {
       injectIntoPerplexity(text);
+    } else if (host.includes("gemini.google.com")) {
+      injectIntoGemini(text);
     } else {
       injectIntoChatGPT(text);
     }
@@ -110,6 +113,8 @@ chrome.runtime.onMessage.addListener((message: { type: string; text?: string }, 
       ok = injectIntoClaude(message.text);
     } else if (host.includes("perplexity.ai")) {
       ok = injectIntoPerplexity(message.text);
+    } else if (host.includes("gemini.google.com")) {
+      ok = injectIntoGemini(message.text);
     } else {
       ok = injectIntoChatGPT(message.text);
     }
