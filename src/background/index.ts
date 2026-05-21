@@ -29,10 +29,15 @@ async function sendToActiveTab(text: string): Promise<InjectionResponse> {
   if (!tab?.id) return { ok: false, error: "No active tab found." };
   
   const url = tab.url ?? "";
-  const isSupported = url.includes("chatgpt.com") || url.includes("chat.openai.com") || url.includes("claude.ai") || url.includes("perplexity.ai");
+  const isSupported = 
+    url.includes("chatgpt.com") || 
+    url.includes("chat.openai.com") || 
+    url.includes("claude.ai") || 
+    url.includes("perplexity.ai") || 
+    url.includes("gemini.google.com");
   
   if (!isSupported) {
-    return { ok: false, error: "Open ChatGPT or Claude first." };
+    return { ok: false, error: "Open ChatGPT, Claude, Perplexity, or Gemini first." };
   }
 
   try {
